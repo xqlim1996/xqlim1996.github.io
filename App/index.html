@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="manifest" href="/src/manifest.json">
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/1-col-portfolio.css" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+
+    <title>Staff Webapp</title>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Staff Webapp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="chat.html">Chat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="itinerary.html">Itinerary Planner</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <!-- Page Content -->
+  <div class="container top-container">
+
+      <!-- Page Heading -->
+    <h1 class="my-4">Flights
+      </h1>
+  </div>
+
+      <!-- Project One -->
+    <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <h4>Flight:</h4>
+        <span class = "flight-number">SQ752</span>
+        <span class = "plane-model">Boeing777</span>
+      </div>
+      <div class="col-sm-2">
+        <h4>Departs</h4>
+        <span class = "departure-loc">SIN</span>
+        <span class = "departure-time">1325</span>
+        <span class = "departure-date">08/08/18</span>
+      </div>
+      <div class="col-sm-2">
+        <h4>Arrives</h4>
+        <span class = "arrival-loc">KLA</span>
+        <span class = "arrival-time">1525</span>
+        <span class = "arrival-date">08/08/18</span>
+      </div>
+      <div class="col-sm-4">
+        <h4>Checked in Status</h4>
+          <h5>Economy:</h5>
+          <div class="progress">
+            <div class="checkin-capacity-economy progress-bar bg-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+            <div class="checkin-bookedload-economy progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+          </div>
+          <h5>Business:</h5>
+          <div class="progress">
+            <div class="checkin-capacity-business progress-bar bg-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+            <div class="checkin-bookedload-business progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+          </div>
+
+        <p class = "overcapacity-indicator"><b></b></p>
+
+      </div>
+      <div class="col-sm-2 passenger-button-div">
+        <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <h4 class="panel-title btn btn-primary">
+          <a data-toggle="collapse" href="#collapse1"><font color="white">Passengers</font></a>
+        </h4>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+      <!-- /.row -->
+    <div id="collapse1" class="panel-collapse collapse">
+      <table class = "passenger-list" style="width:100%">
+        <tr>
+          <th>Booking Ref</th>
+          <th>First Name</th> 
+          <th>Last Name</th>
+          <th>Booking Class</th>
+          <th>Checked in?</th>
+          <th>Travel Flexi?</th>
+          <th>Contact</th>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+      <!-- /.row -->
+    
+  <hr>
+
+  <!-- Project Two -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <h4>Flight:</h4>
+        <span class = "flight-number">SQ752</span>
+        <span class = "plane-model">Boeing777</span>
+      </div>
+      <div class="col-sm-2">
+        <h4>Departs</h4>
+        <span class = "departure-loc">SIN</span>
+        <span class = "departure-time">1315</span>
+        <span class = "departure-date">08/08/18</span>
+      </div>
+      <div class="col-sm-2">
+        <h4>Arrives</h4>
+        <span class = "arrival-loc">KLA</span>
+        <span class = "arrival-time">1515</span>
+        <span class = "arrival-date">08/08/18</span>
+      </div>
+      <div class="col-sm-4">
+        <h4>Checked in Status</h4>
+          <h5>Economy:</h5>
+          <div class="progress">
+            <div class="checkin-capacity-economy progress-bar bg-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+            <div class="checkin-bookedload-economy progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+          </div>
+          <h5>Business:</h5>
+          <div class="progress">
+            <div class="checkin-capacity-business progress-bar bg-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+            <div class="checkin-bookedload-business progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+          </div>
+
+        <p class = "overcapacity-indicator"><b></b></p>
+
+      </div>
+      <div class="col-sm-2 passenger-button-div">
+        <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <h4 class="panel-title btn btn-primary">
+          <a data-toggle="collapse" href="#collapse2"><font color="white">Passengers</font></a>
+        </h4>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+      <!-- /.row -->
+    <div id="collapse2" class="panel-collapse collapse">
+      <table class = "passenger-list" style="width:100%">
+        <tr>
+          <th>Booking Ref</th>
+          <th>First Name</th> 
+          <th>Last Name</th>
+          <th>Booking Class</th>
+          <th>Checked in?</th>
+          <th>Travel Flexi?</th>
+          <th>Contact</th>
+        </tr>
+      </table>
+    </div>
+  
+  </div>
+  <hr>
+
+      <!-- Project Three -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <h4>Flight:</h4>
+        <span class = "flight-number">SQ752</span>
+        <span class = "plane-model">Boeing777</span>
+      </div>
+      <div class="col-sm-2">
+        <h4>Departs</h4>
+        <span class = "departure-loc">SIN</span>
+        <span class = "departure-time">1335</span>
+        <span class = "departure-date">08/08/18</span>
+      </div>
+      <div class="col-sm-2">
+        <h4>Arrives</h4>
+        <span class = "arrival-loc">KLA</span>
+        <span class = "arrival-time">1535</span>
+        <span class = "arrival-date">08/08/18</span>
+      </div>
+      <div class="col-sm-4">
+        <h4>Checked in Status</h4>
+          <h5>Economy:</h5>
+          <div class="progress">
+            <div class="checkin-capacity-economy progress-bar bg-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+            <div class="checkin-bookedload-economy progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+          </div>
+          <h5>Business:</h5>
+          <div class="progress">
+            <div class="checkin-capacity-business progress-bar bg-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+            <div class="checkin-bookedload-business progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+          </div>
+
+        <p class = "overcapacity-indicator"><b></b></p>
+
+      </div>
+      <div class="col-sm-2 passenger-button-div">
+        <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <h4 class="panel-title btn btn-primary">
+          <a data-toggle="collapse" href="#collapse3"><font color="white">Passengers</font></a>
+        </h4>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+      <!-- /.row -->
+    <div id="collapse3" class="panel-collapse collapse">
+      <table class = "passenger-list" style="width:100%">
+        <tr>
+          <th>Booking Ref</th>
+          <th>First Name</th> 
+          <th>Last Name</th>
+          <th>Booking Class</th>
+          <th>Checked in?</th>
+          <th>Travel Flexi?</th>
+          <th>Contact</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+        <!-- /.row -->
+    <hr>
+      <!-- Project Four -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <h4>Flight:</h4>
+        <span class = "flight-number">SQ752</span>
+        <span class = "plane-model">Boeing777</span>
+      </div>
+      <div class="col-sm-2">
+        <h4>Departs</h4>
+        <span class = "departure-loc">SIN</span>
+        <span class = "departure-time">1345</span>
+        <span class = "departure-date">08/08/18</span>
+      </div>
+      <div class="col-sm-2">
+        <h4>Arrives</h4>
+        <span class = "arrival-loc">KLA</span>
+        <span class = "arrival-time">1545</span>
+        <span class = "arrival-date">08/08/18</span>
+      </div>
+      <div class="col-sm-4">
+        <h4>Checked in Status</h4>
+          <h5>Economy:</h5>
+          <div class="progress">
+            <div class="checkin-capacity-economy progress-bar bg-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+            <div class="checkin-bookedload-economy progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+          </div>
+          <h5>Business:</h5>
+          <div class="progress">
+            <div class="checkin-capacity-business progress-bar bg-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+            <div class="checkin-bookedload-business progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+          </div>
+
+        <p class = "overcapacity-indicator"><b></b></p>
+
+      </div>
+      <div class="col-sm-2 passenger-button-div">
+        <div class="panel-group">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <h4 class="panel-title btn btn-primary">
+          <a data-toggle="collapse" href="#collapse4"><font color="white">Passengers</font></a>
+        </h4>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+      <!-- /.row -->
+    <div id="collapse4" class="panel-collapse collapse">
+      <table class = "passenger-list" style="width:100%">
+        <tr>
+          <th>Booking Ref</th>
+          <th>First Name</th> 
+          <th>Last Name</th>
+          <th>Booking Class</th>
+          <th>Checked in?</th>
+          <th>Travel Flexi?</th>
+          <th>Contact</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!-- /.row -->
+  <hr>
+</div>
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src = "flights.js"></script>
+    <script>
+
+      var config = {
+      apiKey: "AIzaSyA84PV-dux0D63LqkNyIs0W7AhGMGS1aXo",
+      authDomain: "skylight-87b14.firebaseapp.com",
+      databaseURL: "https://skylight-87b14.firebaseio.com",
+      projectId: "skylight-87b14",
+      storageBucket: "skylight-87b14.appspot.com",
+      messagingSenderId: "183105683833",
+      };
+      firebase.initializeApp(config);
+
+      // Initialize Cloud Firestore through Firebase
+      var db = firebase.firestore();
+
+      // Disable deprecated features
+      db.settings({
+      timestampsInSnapshots: true
+      });
+
+      var contact_buttons = document.getElementsByClassName("contact");
+
+      for (var i = 0; i < contact_buttons.length; i++){
+        var name = contact_buttons[i].innerHTML;
+
+        //console.log(name);
+        contact_buttons[i].addEventListener("click", function(){
+          chat(this.id);
+        });
+      }
+      
+      function chat(name){
+        console.log("chat function runnig: ", name)
+        db.collection("conversations")
+        .get()
+        .then(function(querySnapshot) {
+            var nameExists = false;
+            querySnapshot.forEach(function(doc) {
+                // doc.data() is never undefined for query doc snapshots
+                var chat = doc.data();
+                console.log(chat.customer);
+
+                if (name == chat.customer){
+                  nameExists = true;
+                }
+                })
+
+                if (nameExists == false){
+                  db.collection("conversations").add({
+                  created: Date().toString(),
+                  customer: name,
+                  messages: []
+                })               
+                  console.log("written");
+                  }
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
+      }
+
+
+    </script>
+  </body>
+
+</html>

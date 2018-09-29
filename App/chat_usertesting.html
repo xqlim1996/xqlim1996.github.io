@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chat</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/chat.css" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Staff Webapp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active" href="#">
+              <a class="nav-link" href="#">Chat</a>
+            </li>
+            <li class="nav-item" >
+              <a class="nav-link" href="itinerary.html">Itinerary Planner</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="wrapper">
+    <!-- Sidebar -->
+      <nav id="sidebar" class = "col-sm-4">
+          <div class="sidebar-header">
+              <h3>Chats</h3>
+          </div>
+          <!---
+          <div class = "sidebar-item">
+              <p class = "sidebar-username">name-1</p>
+              <button class = "start-chat" id = "name-1">chat</button>
+          </div>
+          <div class = "sidebar-item">
+              <p class = "sidebar-username">name-2</p>
+              <button class = "start-chat" id = "name-2">chat</button>
+          </div>
+          <div class = "sidebar-item">
+              <p class = "sidebar-username">name-3</p>
+              <button class = "start-chat" id = "name-3">chat</button>
+          </div>
+          <div class = "sidebar-item">
+              <p class = "sidebar-username">name-4</p>
+              <button class = "start-chat" id = "name-4">chat</button>
+          </div>
+          --->
+          <div class ="sidebar-buffer"></div>
+
+          
+      </nav>
+      <div class = "col-sm-8">
+        <div id = "chats_container" class = "col-sm-12">
+        <!-- Page Content -->
+        <!---
+        <div class="chat_container_left">
+          <p class ="user-left">Customer</p>
+          <p class ="message-left">Hello. How are you today?</p>
+          <p class ="time-left">11:00</p>
+        </div>
+
+        <div class="chat_container_right">
+          <p class ="user-right">Me</p>
+          <p class ="message-right">Hey! I'm fine. Thanks for asking!</p>
+          <p class ="time-right">11:01</p>
+        </div>
+
+        <div class="chat_container_left">
+          <p class ="user-left">Customer</p>
+          <p class ="message-left">Sweet! So, what do you wanna do today?</p>
+          <p class ="time-left">11:02</p>
+        </div>
+
+        <div class="chat_container_right">
+          <p class ="user-right">Me</p>
+          <p class ="message-right">Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
+          <p class ="time-right">11:05</p>
+        </div>
+        --->
+        <div class ="buffer"></div>
+      </div>
+      
+      <div class = "input_row">
+        <input type="text" name="name" placeholder="Enter user id" class = "col-sm-4">
+        <input type="text" name="message" placeholder="Enter message" class = "col-sm-4">
+        <button id = "submit_chat">Chat</button>
+      </div>
+      </div>
+
+    <!-- /.container -->
+</div>
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+    var config = {
+    apiKey: "AIzaSyA84PV-dux0D63LqkNyIs0W7AhGMGS1aXo",
+    authDomain: "skylight-87b14.firebaseapp.com",
+    databaseURL: "https://skylight-87b14.firebaseio.com",
+    projectId: "skylight-87b14",
+    storageBucket: "skylight-87b14.appspot.com",
+    messagingSenderId: "183105683833",
+    };
+    firebase.initializeApp(config);
+
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    // Disable deprecated features
+    db.settings({
+    timestampsInSnapshots: true
+    });
+
+    document.getElementById("submit_chat").addEventListener("click", sendMessage);
+    document.getElementsByName("message")[0].addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      // Trigger the button element with a click
+      document.getElementById("submit_chat").click();
+    }
+  });
+
+    var chat_buttons = document.getElementsByClassName("start-chat");
+    var chat_users = document.getElementsByClassName("sidebar-username");
+    var current_window;
+
+    for (var i = 0; i < chat_buttons.length; i++){
+      var name = chat_users[i].innerHTML;
+
+      //console.log(name);
+      chat_buttons[i].addEventListener("click", function(){
+        current_window = this.id;
+        
+        updateMessages(this.id);
+
+      });
+    }
+
+    
+    
+
+    function getMessage(){
+      var docRef = db.collection("conversations").doc("CLTmdXUpElvEd1hziTzR")
+      docRef.get().then(function(doc) {
+      if (doc.exists) {
+          //console.log("Document data:", doc.data());
+          document.getElementById("p1").innerHTML = doc.data().messages[0].text;
+          document.getElementsByClassName('message').innerHTML = "hello"  //
+          return doc.data();
+      } else {
+          // doc.data() will be undefined in this case
+          //console.log("No such document!");
+      }
+      }).catch(function(error) {
+          //console.log("Error getting document:", error);
+      });
+      
+    }
+
+    function newChatbox(name, direction){
+
+      if (direction === "right"){
+        var new_chatbox = document.createElement('div');
+        new_chatbox.className = "chat_container_right";
+
+        var user = document.createElement('p');
+        user.appendChild(document.createTextNode(name));
+        user.className = "user-right";
+
+        var time = document.createElement('p');
+        time.appendChild(document.createTextNode("11.08"));
+        time.className = "time-right";
+
+        var message = document.createElement('p');
+        message.appendChild(document.createTextNode(""));
+        message.className = "message-right";
+
+        new_chatbox.appendChild(user);
+        new_chatbox.appendChild(message);
+        new_chatbox.appendChild(time);
+      }
+      else if (direction === "left"){
+        var new_chatbox = document.createElement('div');
+        new_chatbox.className = "chat_container_left";
+
+        var user = document.createElement('p');
+        user.appendChild(document.createTextNode(name));
+        user.className = "user-left";
+
+        var time = document.createElement('p');
+        time.appendChild(document.createTextNode("11.08"));
+        time.className = "time-left";
+
+        var message = document.createElement('p');
+        message.appendChild(document.createTextNode(""));
+        message.className = "message-left";
+
+        new_chatbox.appendChild(user);
+        new_chatbox.appendChild(message);
+        new_chatbox.appendChild(time);
+      }
+      
+
+      var chats_container = document.getElementById("chats_container");
+      var input_field = document.getElementsByClassName("buffer")[0];
+      //chats_container.appendChild(new_chatbox);
+      chats_container.insertBefore(new_chatbox, input_field);
+    }
+
+    function updateMessages(name){
+      current_window = name;
+      console.log(current_window);
+
+      $(".chat_container_left").remove();
+      $(".chat_container_right").remove();
+      
+
+      console.log("updateMessages running with: ", name);
+      db.collection("conversations").where("customer", "==", name)
+      .onSnapshot(function(querySnapshot) {
+        var messages = [];
+        querySnapshot.forEach(function(doc) {
+            //console.log(doc.data()); 
+            var currentMessage = doc.data().messages;
+
+            var right_counter = 0;
+            var chatbox_right_text = document.getElementsByClassName('message-right');
+            var chatbox_right_user = document.getElementsByClassName('user-right');
+            var chatbox_right_time = document.getElementsByClassName('time-right');
+
+            var left_counter = 0;
+            var chatbox_left_text = document.getElementsByClassName('message-left');
+            var chatbox_left_user = document.getElementsByClassName('user-left');
+            var chatbox_left_time = document.getElementsByClassName('time-left');
+
+            for (i = 0; i<currentMessage.length; i++){
+
+              if (currentMessage[i].sender == "Staff"){
+                if (typeof chatbox_right_text[right_counter] === "undefined"){
+                  newChatbox(currentMessage[i].sender ,"right")
+                }
+
+                chatbox_right_user[right_counter].innerHTML = currentMessage[i].sender;
+                chatbox_right_time[right_counter].innerHTML = currentMessage[i].created;
+                chatbox_right_text[right_counter].innerHTML = currentMessage[i].text;
+                right_counter++;
+              }
+
+              else if (currentMessage[i].sender != "Staff"){
+                if (typeof chatbox_left_text[left_counter] === "undefined"){
+                  newChatbox(currentMessage[i].sender ,"left")
+                }
+
+                chatbox_left_user[left_counter].innerHTML = currentMessage[i].sender;
+                chatbox_left_time[left_counter].innerHTML = currentMessage[i].created;
+                chatbox_left_text[left_counter].innerHTML = currentMessage[i].text;
+                left_counter++;
+
+              }
+            }
+            
+        });
+      var objDiv = document.getElementById("chats_container");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    });
+    return name;
+    }
+    /*
+    function getUsers(){
+      db.collection("users")
+        .onSnapshot(function(querySnapshot) {
+          users = []
+            querySnapshot.forEach(function(doc) {
+                var firstName = doc.data().firstName;
+                var lastName = doc.data().lastName;
+                var name = {firstName: firstName, lastName: lastName};      
+                users.push(name);
+        })
+                return users;
+        });
+    }*/
+
+    function newSideBarItem(name){
+        //console.log(name);
+        var new_sidebaritem = document.createElement('div');
+        new_sidebaritem.className = "sidebar-item";
+
+        var sidebar_username = document.createElement('p');
+        sidebar_username.appendChild(document.createTextNode(name));
+        sidebar_username.className = "sidebar-username";
+
+        var sidebar_button = document.createElement('button');
+        sidebar_button.appendChild(document.createTextNode("chat"));
+        sidebar_button.className = "start-chat";
+        sidebar_button.id = name;
+        sidebar_button.addEventListener("click", function(){
+        updateMessages(this.id);
+        });
+
+        //console.log(sidebar_button);
+
+        new_sidebaritem.appendChild(sidebar_username);
+        new_sidebaritem.appendChild(sidebar_button);
+
+        var sidebar = document.getElementById("sidebar");
+        var sidebar_buffer = document.getElementsByClassName("sidebar_buffer")[0];
+        //chats_container.appendChild(new_chatbox);
+        sidebar.insertBefore(new_sidebaritem, sidebar_buffer);
+        
+    }
+
+    function updateSidebar(){
+
+    db.collection("conversations")
+    .onSnapshot(function(querySnapshot) {
+
+        var users = [];
+        var sidebar_items = document.getElementsByClassName("sidebar-username");
+
+        querySnapshot.forEach(function(doc) {
+          var customer = doc.data().customer;
+          users.push(customer);
+          console.log(users)
+        });      
+
+        for (i = 0; i < users.length; i++){
+          if (typeof sidebar_items[i] === "undefined"){
+                  console.log(users);
+                  newSideBarItem(users[i]);
+                }
+          //sidebar_items[i].innerHTML = users[i];
+        }
+  
+    });
+    }
+
+
+    function sendMessage_user(){
+      var name = document.getElementsByName("name")[0].value;
+      var message_text = document.getElementsByName("message")[0].value;
+      //var test = db.collection("conversations").get()
+
+      var currentIndex;
+      var newIndex = currentIndex++;
+      var messagesRef;// = db.collection("conversations").doc("CLTmdXUpElvEd1hziTzR");
+
+      db.collection("conversations").get().then(function(querySnapshot) {
+          var nameExist = false;  
+          querySnapshot.forEach(function(doc) {
+              //console.log(doc.data().customer);
+              // doc.data() is never undefined for query doc snapshots
+              if (name == doc.data().customer){
+                console.log("name match", doc.id)
+                console.log(doc.id)
+                messagesRef = db.collection("conversations").doc(doc.id);
+                nameExist = true;
+
+                messagesRef.get().then(function(doc) {
+                if (doc.exists) {
+                    currentIndex = doc.data().messages.length;
+                    //console.log("Document data:", doc.data());
+                } 
+
+                else {
+                }
+                
+                }).catch(function(error) {
+                    //console.log("Error getting document:", error);
+                });
+
+                var message = {
+                  created: Date().toString(),
+                  sender: name,
+                  text: message_text,
+                  id: Date.now()
+                }
+
+                var output = {newIndex: message}
+
+                messagesRef.update({
+                messages: firebase.firestore.FieldValue.arrayUnion(message)
+                });
+                document.getElementsByName("name")[0].value = "";
+                document.getElementsByName("message")[0].value = "";
+              }
+          });
+          if (nameExist == false){
+            db.collection("conversations").add({
+                created: Date().toString(),
+                customer: name,
+                messages: [] ,
+                id: Date.now()
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+                messagesRef = db.collection("conversations").doc(docRef.id);
+                nameExist = true;
+
+                messagesRef.get().then(function(doc) {
+                if (doc.exists) {
+                    currentIndex = doc.data().messages.length;
+                    //console.log("Document data:", doc.data());
+                } 
+
+                else {
+                }
+
+                }).catch(function(error) {
+                    //console.log("Error getting document:", error);
+                });
+
+                var message = {
+                  created: Date().toString(),
+                  sender: name,
+                  text: message_text,
+                  id: Date.now()
+                }
+
+                var output = {newIndex: message}
+
+                messagesRef.update({
+                messages: firebase.firestore.FieldValue.arrayUnion(message)
+                });
+                document.getElementsByName("name")[0].value = "";
+                document.getElementsByName("message")[0].value = "";
+              })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+            } 
+        });
+      updateMessages(name);
+    }
+
+    function sendMessage_staff(user_id){
+
+      var messageRef = db.collection("conversations").doc(user_id);
+      var message_text = document.getElementsByName("message")[0].value;
+      var message = {
+                  created: Date().toString(),
+                  sender: "Staff",
+                  text: message_text,
+                  id: Date.now()
+                }
+      messageRef.get().then(function(doc) {
+          if (doc.exists) {
+              var currentIndex = doc.data().messages.length;
+              newIndex = currentIndex++;
+              var output = {newIndex: message}
+
+              //  var messageRef = db.collection("conversations").doc(user_id);
+
+              messageRef.update({
+              messages: firebase.firestore.FieldValue.arrayUnion(message)
+              })
+              .then(function() {
+                  console.log("Document successfully updated!");
+              })
+              .catch(function(error) {
+                  // The document probably doesn't exist.
+                  console.error("Error updating document: ", error);
+              });
+
+              document.getElementsByName("name")[0].value = "";
+              document.getElementsByName("message")[0].value = "";
+                  } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+          }
+      }).catch(function(error) {
+          console.log("Error getting document:", error);
+      });
+
+
+
+
+      
+
+
+    }
+
+    function sendMessage(){
+      var name = document.getElementsByName("name")[0].value;
+      var user_id;
+      if (name == "Staff"){
+        console.log("staff");
+        db.collection("conversations")
+        .get()
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                if (current_window == doc.data().customer){
+                  user_id = doc.id;
+                }
+            });
+            console.log(user_id);
+            sendMessage_staff(user_id);
+
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
+
+        
+      }
+      else {
+        sendMessage_user();
+      }
+    }
+
+    updateSidebar();   
+
+    //var messages = getMessage();
+    //console.log(messages);
+    
+    </script>
+
+  </body>
+
+</html>
