@@ -39,7 +39,7 @@
               </a>
             </li>
             <li class="nav-item active" href="#">
-              <a class="nav-link" href="#">Chat</a>
+              <a class="nav-link" href="chat.html">Chat</a>
             </li>
             <li class="nav-item" >
               <a class="nav-link" href="itinerary.html">Itinerary Planner</a>
@@ -204,14 +204,14 @@
       $(".chat_container_left").remove();
       $(".chat_container_right").remove();
       
-
       console.log("updateMessages running with: ", name);
       db.collection("conversations").where("customer", "==", name)
       .onSnapshot(function(querySnapshot) {
         var messages = [];
         querySnapshot.forEach(function(doc) {
-            //console.log(doc.data()); 
+             
             var currentMessage = doc.data().messages;
+            console.log(currentMessage);
 
             var right_counter = 0;
             var chatbox_right_text = document.getElementsByClassName('message-right');
@@ -224,6 +224,7 @@
             var chatbox_left_time = document.getElementsByClassName('time-left');
 
             for (i = 0; i<currentMessage.length; i++){
+              console.log("for loop running");
 
               if (currentMessage[i].sender == "Staff"){
                 if (typeof chatbox_right_text[right_counter] === "undefined"){
