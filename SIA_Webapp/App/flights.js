@@ -103,7 +103,7 @@ var obj = $.ajax(settings0).done(function (response) {
     contact_button.style.marginBottom = "4px";
 
     var contact_button_link = document.createElement("a");
-    contact_button_link.setAttribute("href", "chat.html");
+    contact_button_link.setAttribute("href", "App/chat.html");
     contact_button_link.style.color = "white";
     contact_button_link.innerHTML = contact;
     contact_button.appendChild(contact_button_link);
@@ -273,7 +273,7 @@ var obj = $.ajax(settings1).done(function (response) {
     contact_button.style.marginBottom = "4px";
 
     var contact_button_link = document.createElement("a");
-    contact_button_link.setAttribute("href", "chat.html");
+    contact_button_link.setAttribute("href", "App/chat.html");
     contact_button_link.style.color = "white";
     contact_button_link.innerHTML = contact;
     contact_button.appendChild(contact_button_link);
@@ -438,7 +438,7 @@ var obj = $.ajax(settings2).done(function (response) {
     contact_button.style.marginBottom = "4px";
 
     var contact_button_link = document.createElement("a");
-    contact_button_link.setAttribute("href", "chat.html");
+    contact_button_link.setAttribute("href", "App/chat.html");
     contact_button_link.style.color = "white";
     contact_button_link.innerHTML = contact;
     contact_button.appendChild(contact_button_link);
@@ -604,7 +604,7 @@ var obj = $.ajax(settings3).done(function (response) {
     contact_button.style.marginBottom = "4px";
 
     var contact_button_link = document.createElement("a");
-    contact_button_link.setAttribute("href", "chat.html");
+    contact_button_link.setAttribute("href", "App/chat.html");
     contact_button_link.style.color = "white";
     contact_button_link.innerHTML = contact;
     contact_button.appendChild(contact_button_link);
