@@ -307,10 +307,12 @@
         for (i = 0; i < users.length; i++){
           
           var sidebar_length = sidebar_items.length;
-          console.log("sidebar_length: " + sidebar_length)
+          console.log("sidebar_length: " + sidebar_length);
+          var user_id;
 
           if (!(users[i] in sidebar_items)){
             makeNew = true;
+            user_id = i;
             console.log("makeNew" + makeNew);
           }
 
@@ -318,7 +320,7 @@
             console.log("made new sidebaritem")
             console.log(users);
             makeNew = false;
-            newSideBarItem(users[i]);
+            newSideBarItem(user_id);
           }
                  
           //sidebar_items[i].innerHTML = users[i];
