@@ -342,7 +342,6 @@
                   console.error("Error updating document: ", error);
               });
 
-              document.getElementsByName("name")[0].value = "";
               document.getElementsByName("message")[0].value = "";
                   } else {
               // doc.data() will be undefined in this case
@@ -351,6 +350,8 @@
       }).catch(function(error) {
           console.log("Error getting document:", error);
       });
+
+    document.getElementsByName("message")[0].value = "";
 
     }
 
