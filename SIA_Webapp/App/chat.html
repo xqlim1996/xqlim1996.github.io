@@ -301,15 +301,22 @@
           console.log(users)
         });      
 
+        var makeNew;
         for (i = 0; i < users.length; i++){
-          if (typeof sidebar_items[i] === "undefined"){
-                  var makeNew = true;
-                }
-          if (makeNew == true && !(users[i] in sidebar_items)){
+          
+          var sidebar_length = sidebar_items.length;
+
+          if (!(users[i] in sidebar_items){
+            makeNew = true;
+          }
+
+          if (makeNew == true && sidebar_length >= users.length){
             console.log(users);
+            makeNew = false;
+
             newSideBarItem(users[i]);
           }
-                  
+                 
           //sidebar_items[i].innerHTML = users[i];
         }
   
