@@ -303,9 +303,13 @@
 
         for (i = 0; i < users.length; i++){
           if (typeof sidebar_items[i] === "undefined"){
-                  console.log(users);
-                  newSideBarItem(users[i]);
+                  var makeNew = true;
                 }
+          if (makeNew == true && !(users[i] in sidebar_items)){
+            console.log(users);
+            newSideBarItem(users[i]);
+          }
+                  
           //sidebar_items[i].innerHTML = users[i];
         }
   
