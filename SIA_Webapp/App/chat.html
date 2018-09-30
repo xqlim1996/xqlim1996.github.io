@@ -295,6 +295,8 @@
         var users = [];
         var sidebar_items = document.getElementsByClassName("sidebar-username");
 
+        console.log("sidebar_items: " + sidebar_items);
+
         querySnapshot.forEach(function(doc) {
           var customer = doc.data().customer;
           users.push(customer);
@@ -305,15 +307,17 @@
         for (i = 0; i < users.length; i++){
           
           var sidebar_length = sidebar_items.length;
+          console.log("sidebar_length: " + sidebar_length)
 
           if (!(users[i] in sidebar_items)){
             makeNew = true;
+            console.log("makeNew" + makeNew);
           }
 
-          if (makeNew == true && sidebar_length >= users.length){
+          if (makeNew == true && sidebar_length < users.length){
+            console.log("made new sidebaritem")
             console.log(users);
             makeNew = false;
-
             newSideBarItem(users[i]);
           }
                  
