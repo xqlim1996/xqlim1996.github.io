@@ -19,6 +19,8 @@ window.onclick = function(event) {
   }
 }
 
+
+
 var settings0 = {
   "async": true,
   "crossDomain": true,
@@ -62,7 +64,7 @@ var obj = $.ajax(settings0).done(function (response) {
     var travelFlexi = "Yes";
     var contact = "Contact";
 
-
+    
 
     if (checkInStatus == "Checked-In"){
       if (bookingClass == "Economy"){
@@ -71,43 +73,7 @@ var obj = $.ajax(settings0).done(function (response) {
       if (bookingClass == "Business"){
         checkinCounter_business++;
       }
-      
     }
-
-
-    
-    var tr = table.insertRow(-1);
-    tr.style.border = "solid";
-    var td_bookingRef = tr.insertCell(-1);
-    td_bookingRef.innerHTML = bookingRef;
-
-    var td_firstName = tr.insertCell(-1);
-    td_firstName.innerHTML = firstName ;
-
-    var td_lastName = tr.insertCell(-1);
-    td_lastName.innerHTML = lastName;
-
-    var td_bookingClass = tr.insertCell(-1);
-    td_bookingClass.innerHTML = bookingClass;
-
-    var td_checkInStatus = tr.insertCell(-1);
-    td_checkInStatus.innerHTML = checkInStatus;
-
-    var td_travelFlexi = tr.insertCell(-1);
-    td_travelFlexi.innerHTML = travelFlexi;
-
-    var td_contact = tr.insertCell(-1);
-    var contact_button = document.createElement("h4");
-    contact_button.className = "panel-title btn btn-primary";
-    contact_button.style.marginTop = "4px";
-    contact_button.style.marginBottom = "4px";
-
-    var contact_button_link = document.createElement("a");
-    contact_button_link.setAttribute("href", "App/chat.html");
-    contact_button_link.style.color = "white";
-    contact_button_link.innerHTML = contact;
-    contact_button.appendChild(contact_button_link);
-    td_contact.appendChild(contact_button);
     
   }
 
@@ -126,7 +92,7 @@ var obj = $.ajax(settings0).done(function (response) {
 
 
 
-  checkinCounter_economy = 48;
+  //checkinCounter_economy = 48;
 
   var checkin_capacity_economy = document.getElementsByClassName("checkin-capacity-economy");
   checkin_capacity_economy[0].setAttribute("aria-valuemax", economyClassCapacity);
@@ -156,7 +122,7 @@ var obj = $.ajax(settings0).done(function (response) {
 
   //business progress bar
 
-  checkinCounter_business = 6;
+  //checkinCounter_business = 6;
 
   var checkin_capacity_business = document.getElementsByClassName("checkin-capacity-business");
   checkin_capacity_business[0].setAttribute("aria-valuemax", businessClassCapacity);
@@ -243,42 +209,6 @@ var obj = $.ajax(settings1).done(function (response) {
       }
       
     }
-
-
-    
-    var tr = table.insertRow(-1);
-    tr.style.border = "solid";
-    var td_bookingRef = tr.insertCell(-1);
-    td_bookingRef.innerHTML = bookingRef;
-
-    var td_firstName = tr.insertCell(-1);
-    td_firstName.innerHTML = firstName ;
-
-    var td_lastName = tr.insertCell(-1);
-    td_lastName.innerHTML = lastName;
-
-    var td_bookingClass = tr.insertCell(-1);
-    td_bookingClass.innerHTML = bookingClass;
-
-    var td_checkInStatus = tr.insertCell(-1);
-    td_checkInStatus.innerHTML = checkInStatus;
-
-    var td_travelFlexi = tr.insertCell(-1);
-    td_travelFlexi.innerHTML = travelFlexi;
-
-    var td_contact = tr.insertCell(-1);
-    var contact_button = document.createElement("h4");
-    contact_button.className = "panel-title btn btn-primary";
-    contact_button.style.marginTop = "4px";
-    contact_button.style.marginBottom = "4px";
-
-    var contact_button_link = document.createElement("a");
-    contact_button_link.setAttribute("href", "App/chat.html");
-    contact_button_link.style.color = "white";
-    contact_button_link.innerHTML = contact;
-    contact_button.appendChild(contact_button_link);
-    td_contact.appendChild(contact_button);
-    
   }
 
   var flight_number = document.getElementsByClassName("flight-number");
@@ -408,42 +338,6 @@ var obj = $.ajax(settings2).done(function (response) {
       }
       
     }
-
-
-    
-    var tr = table.insertRow(-1);
-    tr.style.border = "solid";
-    var td_bookingRef = tr.insertCell(-1);
-    td_bookingRef.innerHTML = bookingRef;
-
-    var td_firstName = tr.insertCell(-1);
-    td_firstName.innerHTML = firstName ;
-
-    var td_lastName = tr.insertCell(-1);
-    td_lastName.innerHTML = lastName;
-
-    var td_bookingClass = tr.insertCell(-1);
-    td_bookingClass.innerHTML = bookingClass;
-
-    var td_checkInStatus = tr.insertCell(-1);
-    td_checkInStatus.innerHTML = checkInStatus;
-
-    var td_travelFlexi = tr.insertCell(-1);
-    td_travelFlexi.innerHTML = travelFlexi;
-
-    var td_contact = tr.insertCell(-1);
-    var contact_button = document.createElement("h4");
-    contact_button.className = "panel-title btn btn-primary";
-    contact_button.style.marginTop = "4px";
-    contact_button.style.marginBottom = "4px";
-
-    var contact_button_link = document.createElement("a");
-    contact_button_link.setAttribute("href", "App/chat.html");
-    contact_button_link.style.color = "white";
-    contact_button_link.innerHTML = contact;
-    contact_button.appendChild(contact_button_link);
-    td_contact.appendChild(contact_button);
-    
   }
 
   var flight_number = document.getElementsByClassName("flight-number");
@@ -574,42 +468,6 @@ var obj = $.ajax(settings3).done(function (response) {
       }
       
     }
-
-
-    
-    var tr = table.insertRow(-1);
-    tr.style.border = "solid";
-    var td_bookingRef = tr.insertCell(-1);
-    td_bookingRef.innerHTML = bookingRef;
-
-    var td_firstName = tr.insertCell(-1);
-    td_firstName.innerHTML = firstName ;
-
-    var td_lastName = tr.insertCell(-1);
-    td_lastName.innerHTML = lastName;
-
-    var td_bookingClass = tr.insertCell(-1);
-    td_bookingClass.innerHTML = bookingClass;
-
-    var td_checkInStatus = tr.insertCell(-1);
-    td_checkInStatus.innerHTML = checkInStatus;
-
-    var td_travelFlexi = tr.insertCell(-1);
-    td_travelFlexi.innerHTML = travelFlexi;
-
-    var td_contact = tr.insertCell(-1);
-    var contact_button = document.createElement("h4");
-    contact_button.className = "panel-title btn btn-primary";
-    contact_button.style.marginTop = "4px";
-    contact_button.style.marginBottom = "4px";
-
-    var contact_button_link = document.createElement("a");
-    contact_button_link.setAttribute("href", "App/chat.html");
-    contact_button_link.style.color = "white";
-    contact_button_link.innerHTML = contact;
-    contact_button.appendChild(contact_button_link);
-    td_contact.appendChild(contact_button);
-    
   }
 
   var flight_number = document.getElementsByClassName("flight-number");
@@ -689,42 +547,18 @@ var obj = $.ajax(settings3).done(function (response) {
 
 
 
-//Doent work:
-/*
-var xmlhttp = new XMLHttpRequest();
-var request = {
-   "flightNo": "SQ890", 
-   "flightDate": "2018-07-20" 
- };
+//SORT
 
+const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
 
-xmlhttp.open("POST", "https://apigw.singaporeair.com/appchallenge/api/flight/passenger");
-xmlhttp.setRequestHeader("Content-Type", "application/json");
-xmlhttp.setRequestHeader("apikey", "aghk73f4x5haxeby7z24d2rc");
-xmlhttp.send(JSON.stringify(request));
+const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
 
-var data = xmlhttp.responseText;
-
-parsed_data = JSON.parse(data);
-
-console.log(parsed_data);*/
-
-// Create the XHR object.
-
-/*
-var invocation = new XMLHttpRequest();
-var url = 'https://apigw.singaporeair.com/appchallenge/api/flight/passenger';
-var body = {"flightNo": "SQ890", "flightDate": "2018-07-20"};
-
-    
-function callOtherDomain(){
-  if(invocation)
-    {
-      invocation.open('POST', url, true);
-      invocation.setRequestHeader('apikey', 'aghk73f4x5haxeby7z24d2rc');
-      invocation.setRequestHeader('Content-Type', 'application/json');
-      invocation.send(body); 
-    }
-}
-
-callOtherDomain();*/
+// do the work...
+document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr) );
+})));

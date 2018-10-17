@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="manifest" href="src/manifest.json">
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/1-col-portfolio.css" rel="stylesheet">
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <title>Staff Webapp</title>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Staff Webapp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html">Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="chat.html">Chat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="itinerary.html">Itinerary Planner</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <!-- Page Content -->
+  <div class="container top-container row">
+  	<div class = "col-sm-8">
+  		<h1 class="my-4 flight-number">Flight SQ890
+      		</h1>
+  	</div>
+      <!-- Page Heading -->
+    <div class = "col-sm-2 bumpbid-button" id = "bumpbid-start-button">
+    	<h4 class = "panel-title btn btn-primary ">
+    		Start BumpBid
+    	</h4>
+    </div>
+
+    <div class = "col-sm-2 bumpbid-button" id = "bumpbid-stop-button">
+    	<h4 class = "panel-title btn btn-primary ">
+    		Stop Bumpbid
+    	</h4>
+    </div>
+  </div>
+
+<!-- Icon Cards -->
+  <div class="row card-holder container">
+
+  	<div class="col-xl-3 col-sm-6 mb-3">
+      <div class="card text-black bg-primary o-hidden h-100">
+        <div class="card-body">
+          <div class="card-body-icon-time">
+            <i class="text-white fas fa-plane-departure"></i>
+          </div>
+          <div>Departure Time: <b>1425</b></div>
+        </div>
+        <a class="card-footer text-white clearfix small z-1" href="#" id = "time-details-button">
+          <span class="float-left" >View Details</span>
+          <span class="float-right">
+            <i class="fas fa-angle-right"></i>
+          </span>
+        </a>
+      </div>
+
+	</div>
+
+    <div class="col-xl-3 col-sm-6 mb-3">
+      <div class="card text-black bg-primary o-hidden h-100">
+        <div class="card-body">
+          <div class="card-body-icon">
+            <i class="text-white fas fa-hand-holding-usd"></i>
+          </div>
+          <div>Current BumpBid: <b><span class = "bumpBidValue">-</span></b></div>
+        </div>
+        <a class="card-footer text-white clearfix small z-1" href="#" id = "bumpbid-value-button" >
+          <span class="float-left">Change BumpBid</span>
+          <span class="float-right">
+            <i class="fas fa-angle-right"></i>
+          </span>
+        </a>
+      </div>
+
+	</div>
+
+
+	<div class="col-xl-3 col-sm-6 mb-3">
+      <div class="card text-black bg-danger o-hidden h-100">
+        <div class="card-body">
+          <div class="card-body-icon-overcapacity">
+            <i class="text-white fas fa-exclamation"></i>
+          </div>
+          <div>Total Overbooked: <b><span class="overcapacity">4</span> seats</b></div>
+        </div>
+        <a class="card-footer text-white clearfix small z-1" href="#" id = "progressbar-container-button">
+          <span class="float-left" >View Details</span>
+          <span class="float-right">
+            <i class="fas fa-angle-right"></i>
+          </span>
+        </a>
+      </div>
+
+	  </div>
+	<div class="col-xl-3 col-sm-6 mb-3">
+      <div class="card text-black bg-warning o-hidden h-100" id="customersAccepted_indicator">
+        <div class="card-body">
+          <div class="card-body-icon">
+            <i class="text-white fas fa-thumbs-up"></i>
+          </div>
+          <div>Customers accepted: <b><span class = "customersAccepted">3</span></b></div>
+        </div>
+        <a class="card-footer text-white clearfix small z-1" href="#" id = "bumpbid-passengers-button">
+          <span class="float-left">View Details</span>
+          <span class="float-right">
+            <i class="fas fa-angle-right"></i>
+          </span>
+        </a>
+      </div>
+
+	  </div>
+
+  </div>
+
+      <!-- Project One -->
+    <div class="container">
+    <div class="row">
+      <div class="col-sm-4 time-details">
+        <h4>Departs: 
+        <span class = "departure-loc">SIN</span>
+        <span class = "departure-time">1425</span>
+        <span class = "departure-date">08/08/18</span>
+        </h4>
+      </div>
+      <div class="col-sm-4 time-details">
+        <h4>Arrives: 
+        <span class = "arrival-loc">KUL</span>
+        <span class = "arrival-time">1525</span>
+        <span class = "arrival-date">08/08/18</span>
+        </h4>
+      </div>
+      <div class="col-md-12" id="progressbar-container">
+        <h4>Checked in Status</h4>
+          <h5>Economy:</h5>
+          <div class="progress">
+            <div class="checkin-capacity-economy progress-bar bg-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+            <div class="checkin-bookedload-economy progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+          </div>
+          <h5>Business:</h5>
+          <div class="progress">
+            <div class="checkin-capacity-business progress-bar bg-info" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+            <div class="checkin-bookedload-business progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            </div>
+          </div>
+
+        <p class = "overcapacity-indicator"><b></b></p>
+
+      </div>
+      
+    </div>
+      <!-- /.row -->
+      <h3 class = "passenger-header">Passenger List</h3>
+    <div>
+      <table class = "passenger-list" style="width:100%">
+        <tr>
+          <th>Booking Ref</th>
+          <th>First Name</th> 
+          <th>Last Name</th>
+          <th>Booking Class</th>
+          <th>Checked in?</th>
+          <th>Travel Flexi?</th>
+          <th>Bumpbid Offer</th>
+          <th>Contact</th>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+      <!-- /.row -->
+    
+  <hr>
+
+  <!-- /.row -->
+  <hr>
+</div>
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src = "flight_SQ890.js"></script>
+  </body>
+
+</html>
